@@ -5,25 +5,31 @@ import { ProgressBar } from '@/components/common/dashboard/progress-bar';
 import { RecommendedQuests } from '@/components/common/dashboard/recom-quests';
 import { StatsPanel } from '@/components/common/dashboard/stats-panel';
 import {QuestsHeader} from '@/components/common/dashboard/quests-header';
+import { useRecommendedQuests } from '@/api/quests';
+import { useUser } from '@/api/users';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/api/api';
 
 export default function Home() {
-  const user = {
-    name: 'ioana',
-    level: 5,
-    currentXP: 120,
-    nextLevelXP: 200,
-    completedQuests: 12,
-  };
+
+  const storedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+  const localUser = storedUser ? JSON.parse(storedUser) : null;
+  const userId = localUser?.id;
+
+  const { data: user, isLoading: userLoading } = useUser(userId);
+  const { data: recommendedQuests = [] } = useRecommendedQuests(userId);
+
+  if (userLoading) return <div className="p-8">Loading user data...</div>;
 
   return (
     <div className="p-8 space-y-8">
       <StatsPanel
-        name="ioana"
-        level={5}
-        completedQuests={12}
-        currentXP={120}
-        nextLevelXP={200}
-        streak={7}
+        name={user?.username || 'Player'}
+        level={user?.level || 1}
+        completedQuests={user?.completedQuests || 0}
+        currentXP={user?.currentXP || 0}
+        nextLevelXP={user?.nextLevelXP || 100}
+        streak={user?.streak || 0}
       />
 
       <Card>
@@ -31,20 +37,19 @@ export default function Home() {
           <CardTitle>Progress to next level</CardTitle>
         </CardHeader>
         <CardContent>
-         <ProgressBar
-            current={120}
-            max={200}
-            questsCompleted={[
-              { name: 'Intro to JS', xp: 20 },
-              { name: 'Loops Challenge', xp: 50 },
-              { name: 'Functions Mini Quest', xp: 80 },
-            ]}
-          />    
+          <ProgressBar
+            current={user?.currentXP || 0}
+            max={user?.nextLevelXP || 100}
+            questsCompleted={recommendedQuests.map(q => ({
+              name: q.questName,
+              xp: q.xp,
+            }))}
+          />
         </CardContent>
       </Card>
+
       <QuestsHeader />
       <RecommendedQuests />
     </div>
   );
 }
-
