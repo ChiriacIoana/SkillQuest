@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/common/ui/card';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { Trophy, Star, Zap } from 'lucide-react';
+import { Trophy, Star, Zap, ArrowBigUpDash } from 'lucide-react';
 
 interface StatsPanelProps {
   name: string;
@@ -52,12 +52,12 @@ export const StatsPanel: React.FC<StatsPanelProps> = ({
     <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-xl">
       <CardHeader>
         <CardTitle className="text-lg md:text-xl">
-          Welcome back, {name}! 👋
+          Welcome back, {name}! 
         </CardTitle>
       </CardHeader>
       <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <div className="flex items-center space-x-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:scale-105 transition-transform">
-          <Star className="w-6 h-6 text-yellow-400" />
+          <ArrowBigUpDash className="w-6 h-6 text-blue-500" />
           <div>
             <p className="text-sm text-gray-500 dark:text-gray-300">Level</p>
             <p className="text-xl font-bold">{levelDisplay}</p>
@@ -93,10 +93,10 @@ export const StatsPanel: React.FC<StatsPanelProps> = ({
         </div>
 
         <div className="flex items-center space-x-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:scale-105 transition-transform">
-          <Star className="w-6 h-6 text-green-400" />
+          <Star className="w-6 h-6 text-purple-500" />
           <div>
             <p className="text-sm text-gray-500 dark:text-gray-300">Daily Streak</p>
-            <p className="text-xl font-bold">{streakDisplay} 🔥</p>
+            <p className="text-xl font-bold">{streakDisplay} </p>
           </div>
         </div>
       </CardContent>
