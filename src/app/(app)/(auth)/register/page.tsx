@@ -1,4 +1,5 @@
 "use client";
+
 import { useRegister } from "@/api/auth";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { Button } from "@/components/common/ui/button";
@@ -12,58 +13,53 @@ import {
 import { Input } from "@/components/common/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import validator from "validator";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
-const schema = z
-  .object({
-    username: z
-      .string()
-      .min(3, "Username must be at least 3 characters long")
-      .max(40, "Username must be at most 40 characters long"),
-    firstName: z
-      .string()
-      .min(1, "First name is required")
-      .max(40, "Username must be at most 40 characters long"),
-    lastName: z
-      .string()
-      .min(1, "Last name is required")
-      .max(40, "Username must be at most 40 characters long"),
-    email: z
-      .string()
-      .min(1, "Email is required")
-      .refine(validator.isEmail, { error: "Invalid email address" }),
-    password: z
-      .string()
-      .min(6, "Password must be at least 6 characters long")
-      .refine(validator.isStrongPassword, { error: "Password must be strong" }),
-    repeatPassword: z
-      .string()
-      .min(6, "Password must be at least 6 characters long")
-      .refine(validator.isStrongPassword, { error: "Password must be strong" }),
-  })
-  .refine((data) => data.password === data.repeatPassword, {
-    message: "Passwords must match",
-    path: ["repeatPassword"],
-  });
+// Backend expects username + password only
+const schema = z.object({
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters long")
+    .max(40, "Username must be at most 40 characters long"),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters long"),
+  repeatPassword: z
+    .string()
+    .min(6, "Password must be at least 6 characters long"),
+}).refine((data) => data.password === data.repeatPassword, {
+  message: "Passwords must match",
+  path: ["repeatPassword"],
+});
 
-export default function () {
+export default function RegisterPage() {
+  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      username: "",
       password: "",
       repeatPassword: "",
     },
     mode: "onBlur",
   });
 
-  const register = useRegister();
+  const registerMutation = useRegister();
 
-  function onSubmit(data: z.infer<typeof schema>) {
-    register.mutate(data);
+  async function onSubmit(data: z.infer<typeof schema>) {
+    try {
+      await registerMutation.mutateAsync({
+        username: data.username,
+        password: data.password,
+      });
+      alert("Registration successful! Please login.");
+      router.push("/login");
+    } catch (err: any) {
+      console.error("Registration failed:", err.message || err);
+      alert(err.message || "Registration failed. Please try again.");
+    }
   }
 
   return (
@@ -75,51 +71,13 @@ export default function () {
           <FormItem>
             <FormLabel>Username</FormLabel>
             <FormControl>
-              <Input placeholder="kjhgb" {...field} />
+              <Input placeholder="your username" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="firstName"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>First name</FormLabel>
-            <FormControl>
-              <Input placeholder="john" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="lastName"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Last name</FormLabel>
-            <FormControl>
-              <Input placeholder="Doe" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="email"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Email</FormLabel>
-            <FormControl>
-              <Input placeholder="john@email.com" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+
       <FormField
         control={form.control}
         name="password"
@@ -127,36 +85,31 @@ export default function () {
           <FormItem>
             <FormLabel>Password</FormLabel>
             <FormControl>
-              <Input
-                placeholder="strong password"
-                {...field}
-                type={"password"}
-              />
+              <Input placeholder="password" {...field} type="password" />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
+
       <FormField
         control={form.control}
         name="repeatPassword"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Repeat password</FormLabel>
+            <FormLabel>Repeat Password</FormLabel>
             <FormControl>
-              <Input
-                placeholder="repeat password"
-                {...field}
-                type={"password"}
-              />
+              <Input placeholder="repeat password" {...field} type="password" />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
-      <Button type="submit" className={"w-full"}>
+
+      <Button type="submit" className="w-full">
         Submit
       </Button>
+
       <div className="text-black-500 text-sm text-center mt-4">
         Already have an account?{" "}
         <a href="/login" className="text-blue-500 underline">

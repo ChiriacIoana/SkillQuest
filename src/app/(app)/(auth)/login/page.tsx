@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/common/ui/button";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { useLogin } from "@/api/auth";
@@ -12,55 +13,45 @@ import {
 import { Input } from "@/components/common/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import validator from "validator";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 
-
 const schema = z.object({
-  email: z
+  username: z
     .string()
-    .min(8, "Email is required")
-    .max(40, "Email must be at most 40 characters long")
-    .refine(validator.isEmail, { error: "Invalid email address" }),
+    .min(3, "Username is required")
+    .max(40, "Username must be at most 40 characters long"),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters long")
-    .refine(validator.isStrongPassword, {
-      error: "Password is not strong enough",
-    }),
+    .min(6, "Password must be at least 6 characters long"),
 });
 
-export default function () {
-  
-const router = useRouter();
+export default function LoginPage() {
+  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
     mode: "onBlur",
   });
 
-  const login = useLogin();
+  const loginMutation = useLogin();
 
   async function onSubmit(data: z.infer<typeof schema>) {
-    // setIsLoading(true);
-    // setError(null);
-
     try {
-      //await login(data.email, data.password);
+      const res = await loginMutation.mutateAsync({
+        username: data.username,
+        password: data.password,
+      });
+
+      console.log("Login successful:", res);
       router.push("/home");
-      console.log("Form submitted with data:", data);
-      console.log(
-        "API URL:",
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5500/api"
-      );
     } catch (err: any) {
-      //setError(err.message || 'Login failed. Please try again.');
-    } finally {
-      //setIsLoading(false);
+      console.error("Login failed:", err.message || err);
+      alert(err.message || "Login failed. Please try again.");
     }
   }
 
@@ -68,17 +59,18 @@ const router = useRouter();
     <AuthLayout title={"Login"} form={form} onSubmit={onSubmit}>
       <FormField
         control={form.control}
-        name="email"
+        name="username"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Email</FormLabel>
+            <FormLabel>Username</FormLabel>
             <FormControl>
-              <Input placeholder="john@email.com" {...field} />
+              <Input placeholder="your username" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
+
       <FormField
         control={form.control}
         name="password"
@@ -86,19 +78,17 @@ const router = useRouter();
           <FormItem>
             <FormLabel>Password</FormLabel>
             <FormControl>
-              <Input
-                placeholder="strong password"
-                {...field}
-                type={"password"}
-              />
+              <Input placeholder="password" {...field} type="password" />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
-      <Button type="submit" className={"w-full"}>
+
+      <Button type="submit" className="w-full">
         Submit
       </Button>
+
       <div className="text-black-500 text-sm text-center mt-4">
         Don't have an account?{" "}
         <a href="/register" className="text-blue-500 underline">
