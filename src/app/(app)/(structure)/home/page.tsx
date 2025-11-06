@@ -1,9 +1,10 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/common/ui/card';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/common/ui/card';
 import { ProgressBar } from '@/components/common/dashboard/progress-bar';
 import { RecommendedQuests } from '@/components/common/dashboard/recom-quests';
 import { StatsPanel } from '@/components/common/dashboard/stats-panel';
+import {QuestsHeader} from '@/components/common/dashboard/quests-header';
 
 export default function Home() {
   const user = {
@@ -41,7 +42,7 @@ export default function Home() {
           />    
         </CardContent>
       </Card>
-
+      <QuestsHeader />
       <RecommendedQuests />
     </div>
   );

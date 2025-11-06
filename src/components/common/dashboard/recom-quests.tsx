@@ -5,23 +5,27 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/common/ui
 import { Button } from '@/components/common/ui/button';
 import { motion } from 'framer-motion';
 import { Tooltip } from '@/components/common/ui/tooltip';
+import { useRouter } from 'next/navigation';
 
 interface Quest {
   id: number;
   title: string;
   xp: number;
   description?: string;
+  href?: string;
 }
 
 const quests: Quest[] = [
-  { id: 1, title: 'Learn TypeScript Basics', xp: 20, description: 'Intro to TS syntax and types' },
-  { id: 2, title: 'JavaScript Loops Challenge', xp: 15, description: 'Master loops and iterations' },
-  { id: 3, title: 'Effective Communication Tips', xp: 10, description: 'Improve your communication skills' },
+  { id: 1, title: 'Learn JavaScript - all levels', xp: 20, description: 'Intro to JS syntax and types', href: '/javaScript' },
+  { id: 2, title: 'TypeScript for modern web', xp: 15, description: 'Learn TypeScript for scalable web apps', href: '/typeScriptt' },
+  { id: 3, title: 'Calculus Fundamentals', xp: 10, description: 'Understand the basics of calculus', href: '/calculus' },
   { id: 4, title: 'React State Mastery', xp: 25, description: 'Learn useState and useEffect deeply' },
   { id: 5, title: 'CSS Grid Layout', xp: 15, description: 'Build complex layouts easily' },
 ];
 
 export const RecommendedQuests: React.FC = () => {
+  const Router = useRouter();
+  
   return (
     <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-xl">
       <CardHeader>
@@ -42,7 +46,7 @@ export const RecommendedQuests: React.FC = () => {
               </div>
               <div className="mt-2 flex items-center justify-between">
                 <p className="text-sm text-gray-500 dark:text-gray-300">{quest.xp} XP</p>
-                <Button className="px-3 py-1 text-sm">Start</Button>
+                <Button className="px-3 py-1 text-sm" onClick={() => quest.href && Router.push(quest.href)}>Start</Button>
               </div>
               <div className="mt-2 w-full bg-gray-200 dark:bg-gray-600 h-2 rounded-full overflow-hidden">
                 <div
