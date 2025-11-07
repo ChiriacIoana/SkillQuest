@@ -7,7 +7,7 @@ import { SquareSigma } from 'lucide-react';
 export default function CalculusPage() {
   const quests = [
     {
-      id: 1,
+      id: 10,
       title: 'Limits & Continuity',
       description: 'Understand how functions behave as they approach specific points or infinity.',
       xp: 25,
@@ -21,7 +21,7 @@ export default function CalculusPage() {
       difficulty: 'Intermediate' as const,
     },
     {
-      id: 3,
+      id: 8,
       title: 'Applications of Derivatives',
       description: 'Use derivatives for optimization, motion, and curve sketching problems.',
       xp: 50,

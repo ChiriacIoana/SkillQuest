@@ -9,11 +9,9 @@ import { useRecommendedQuests } from '@/api/quests';
 import { useUser } from '@/api/users';
 
 export default function Home() {
-
-  const storedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
-  const localUser = storedUser ? JSON.parse(storedUser) : null;
   const userIdString = typeof window !== 'undefined' ? localStorage.getItem('userId') : null;
   const userId = userIdString ? parseInt(userIdString, 10) : undefined;
+
 
   const { data: user, isLoading: userLoading, error } = useUser(userId);
   const { data: recommendedQuests = [] } = useRecommendedQuests(userId);
