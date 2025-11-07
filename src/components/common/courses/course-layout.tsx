@@ -9,9 +9,12 @@ import {
 import { Badge } from "@/components/common/ui/badge";
 import { Button } from "@/components/common/ui/button";
 import React from "react";
+import { useRouter } from "next/navigation";
+
 
 interface Quest {
   id: number;
+  category?: string;
   title: string;
   description: string;
   xp: number;
@@ -38,6 +41,8 @@ export const CourseLayout: React.FC<CourseLayoutProps> = ({
   totalXP,
   quests,
 }) => {
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-6 md:px-12">
       <div
@@ -102,6 +107,7 @@ export const CourseLayout: React.FC<CourseLayoutProps> = ({
                 <Button
                   className="w-full"
                   variant={quest.completed ? "secondary" : "default"}
+                  onClick={() => !quest.completed && router.push(`/${quest.category}/${quest.id}`)}
                 >
                   {quest.completed ? "Completed ✅" : "Start Quest"}
                 </Button>
