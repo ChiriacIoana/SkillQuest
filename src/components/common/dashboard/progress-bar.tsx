@@ -32,25 +32,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
             animate={{ width: `${percent}%` }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
           />
-
-          {questsCompleted.map((q, index) => {
-            const markerPercent = (q.xp / max) * 100;
-            return (
-              <div
-                key={index}
-                title={`${q.name}: ${q.xp} XP`}
-                className="absolute top-0 h-6 w-1 bg-white dark:bg-gray-300 rounded-sm"
-                style={{ left: `${markerPercent}%` }}
-              />
-            );
-          })}
         </div>
       </div>
 
       <div className="flex justify-between text-xs text-gray-400 dark:text-gray-500">
-        <span>Level 1</span>
-        <span>Level 2</span>
-        <span>Level 3</span>
+        <span>Beginner</span>
+        <span>Intermediate</span>
+        <span>Advanced</span>
       </div>
     </div>
   );

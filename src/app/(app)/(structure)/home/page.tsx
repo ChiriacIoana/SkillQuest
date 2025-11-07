@@ -7,6 +7,7 @@ import { StatsPanel } from '@/components/common/dashboard/stats-panel';
 import {QuestsHeader} from '@/components/common/dashboard/quests-header';
 import { useRecommendedQuests } from '@/api/quests';
 import { useUser } from '@/api/users';
+import { SiteHeader } from '@/components/common/dashboard/site-header';
 
 export default function Home() {
   const userIdString = typeof window !== 'undefined' ? localStorage.getItem('userId') : null;
@@ -22,6 +23,7 @@ export default function Home() {
 
   return (
     <div className="p-8 space-y-8">
+      <SiteHeader />
       <StatsPanel
         name={user.username || 'Player'}
         level={user.level || 1}
