@@ -10,7 +10,7 @@ import api from '@/api/api';
 
 async function getQuestByIdAndCategory(questId: number) {
  
-  const category = 'typescript';
+  const category = 'typescriptt';
   const res = await api.get(`/quests/category/${category}/${questId}`);
   return res.data;
 }

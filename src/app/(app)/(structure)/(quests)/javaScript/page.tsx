@@ -5,7 +5,7 @@ import { Code2 } from "lucide-react";
 import { useQuestsByCategory } from "@/api/quests";
 
 export default function JavaScriptPage() {
-  const { data: quests = [], isLoading, error } = useQuestsByCategory("javascript");
+  const { data: quests = [], isLoading, error } = useQuestsByCategory("javaScript");
 
   if (isLoading) return <div className="p-8">Loading quests...</div>;
   if (error) return <div className="p-8 text-red-500">Error loading quests: {error.message}</div>;
