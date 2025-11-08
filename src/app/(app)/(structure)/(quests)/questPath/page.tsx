@@ -24,34 +24,43 @@ interface QuestTrack {
 
 const questTracks: QuestTrack[] = [
   {
-    id: "js",
-    title: "JavaScript Mastery",
-    description: "Become proficient in JavaScript, the language of the web.",
-    difficulty: "Beginner",
+    id: "next",
+    title: "Next.js Journey",
+    description: "Master the Next.js framework to build powerful server-side rendered React applications.",
+    difficulty: "Intermediate",
     xprange: "50-200 XP",
     color: "from-yellow-400 to-orange-500",
-    href: "/javaScript",
+    href: "/Next.js",
   },
   {
-    id: "ts",
-    title: "TypeScript Pro",
-    description:
-      "Learn TypeScipt from the ground up and build scalable, type safe applications.",
-    difficulty: "Intermediate",
-    xprange: "100-300 XP",
-    color: "from-blue-400 to-indigo-500",
-    href: "/typeScriptt",
-  },
-  {
-    id: "calc",
-    title: "Calculus Fundamentals",
-    description:
-      "Understand the basics of calculus including limits, derivatives, and integrals.",
-    difficulty: "Advanced",
+  id: "node",
+  title: "Node.js Mastery",
+  description: "Learn how to build fast, scalable server-side applications using Node.js and Express.",
+  difficulty: "Advanced",
+  xprange: "100-300 XP",
+  color: "from-pink-400 to-red-500",
+  href: "/NodeJs",
+},
+
+   {
+    id: "react",
+    title: "React Development",
+    description: "Build dynamic web applications using React and component-based architecture.",
+    difficulty: "Beginner",
     xprange: "250-400 XP",
     color: "from-green-400 to-emerald-500",
-    href: "/calculus",
+    href: "/React",
   },
+  {
+    id: "html",
+    title: "HTML Essentials",
+    description: "Learn the fundamentals of HTML and structure web pages effectively.",
+    difficulty: "Beginner",
+    xprange: "50-150 XP",
+    color: "from-green-400 to-teal-500",
+    href: "/HTML",
+  },
+
 ];
 
 export default function QuestsPage() {

@@ -6,8 +6,8 @@ import { FileCodeCorner } from 'lucide-react';
 import { useQuestsByCategory } from '@/api/quests';
 
 
-export default function TypeScriptPage() {
-  const { data: quests = [], isLoading, error } = useQuestsByCategory("typescriptt");
+export default function NodejsPage() {
+  const { data: quests = [], isLoading, error } = useQuestsByCategory("NodeJs");
   
     if (isLoading) return <div className="p-8">Loading quests...</div>;
     if (error) return <div className="p-8 text-red-500">Error loading quests: {error.message}</div>;
@@ -17,10 +17,10 @@ export default function TypeScriptPage() {
 
   return (
     <CourseLayout
-      title="TypeScript Pro"
+      title="Node.js Development"
       icon={<FileCodeCorner size={32} />}
-      gradient="from-blue-500 to-indigo-700"
-      description="Upgrade your JavaScript skills by mastering TypeScript — the language of scalable web apps."
+      gradient="from-pink-400 to-red-500"
+      description="Upgrade your JavaScript skills by mastering Node.js — the runtime for building scalable server-side applications."
       progress={45}
       totalXP={totalXP}
       quests={quests}

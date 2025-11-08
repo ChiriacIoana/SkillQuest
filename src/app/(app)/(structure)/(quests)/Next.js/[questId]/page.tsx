@@ -10,7 +10,7 @@ import api from '@/api/api';
 
 async function getQuestByIdAndCategory(questId: number) {
  
-  const category = 'javaScript';
+  const category = 'Next.js';
   const res = await api.get(`/quests/category/${category}/${questId}`);
   return res.data;
 }
