@@ -10,7 +10,8 @@ import { useQuestions } from "@/components/hooks/useQuestion";
 import { useQuestLogic } from "@/components/hooks/useQuestLogic";
 import { useCompleteQuest } from "@/api/quests";
 import { GoBackButton } from "@/components/common/ui/goback-button";
-import { Server } from 'lucide-react';
+import { Send, Server } from 'lucide-react';
+import { StarsBackground } from "@/components/common/ui/stars";
 
 export default function QuestPage() {
   const params = useParams();
@@ -40,7 +41,12 @@ export default function QuestPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+     <div
+          className="relative min-h-screen w-full text-gray-900 dark:text-gray-100 
+                     bg-gradient-to-br from-blue-100 via-indigo-200 to-purple-300 
+                     dark:from-gray-900 dark:via-gray-800 dark:to-indigo-950 overflow-hidden"
+        >
+      <StarsBackground />
     <div className="max-w-4xl mx-auto p-8">
       <GoBackButton className="mb-3"/>
       <QuestCard 
@@ -59,11 +65,13 @@ export default function QuestPage() {
             selectedAnswer={selectedAnswers[q.id]}
             onChange={(key) => handleAnswerChange(q.id, key)}
             submitted={submitted}
+            xp={q.xp}
           />
         );
       })}
-      <Button onClick={handleComplete} disabled={submitted}>
+      <Button onClick={handleComplete} disabled={submitted} className="hover:bg-gray-400">
         {submitted ? "Completed" : "Complete Quest"}
+        <Send className="h-4 w-4 mt-1.5"/>
       </Button>
     </div>
     </div>

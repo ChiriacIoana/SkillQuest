@@ -1,12 +1,13 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/common/ui/card";
 
 export function QuestionCard({
-  index, // <-- add index
+  index,
   question,
   result,
   selectedAnswer,
   onChange,
   submitted,
+  xp,
 }: {
   index: number; 
   question: any;
@@ -14,6 +15,7 @@ export function QuestionCard({
   selectedAnswer: string | undefined;
   onChange: (key: string) => void;
   submitted: boolean;
+  xp: number;
 }) {
   const answers = JSON.parse(question.answersJson);
 

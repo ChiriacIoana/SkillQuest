@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { Card, CardHeader } from '@/components/common/ui/card';
 import { Orbitron } from 'next/font/google';
 import { Share_Tech } from 'next/font/google';
@@ -22,9 +21,9 @@ export function SiteHeader() {
         />
 
         <h1
-           className={`text-2xl sm:text-4xl lg:text-5xl font-bold tracking-[0.2em] 
+           className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-[0.2em] 
               text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-500
-              uppercase select-none ml-4 sm:ml-10 lg:ml-24 ${shareTech.className}`}
+              uppercase select-none ml-4 sm:ml-10 lg:ml-24 "
           style={{
             transform: 'scaleX(1.1)', 
           }}

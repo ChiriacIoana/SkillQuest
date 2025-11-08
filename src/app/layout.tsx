@@ -2,6 +2,7 @@ import Providers from '@/providers/providers';
 import type { Metadata } from 'next';
 import { Geist_Mono, Onest, } from 'next/font/google';
 import './globals.css';
+import { Navbar } from '@/components/common/ui/navbar';
 
 const onest = Onest({
   subsets: ['latin'],
@@ -25,10 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <>
+    <Navbar />
     <html lang='en' suppressHydrationWarning>
-      <body className={`${onest.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${onest.variable} ${geistMono.variable} antialiased pt-10`}>
         <Providers>{children}</Providers>
       </body>
     </html>
+    </>
   );
 }

@@ -110,7 +110,7 @@ export const CourseLayout: React.FC<CourseLayoutProps> = ({
                   </span>
                 </div>
                 <Button
-                  className="w-full"
+                  className="w-full hover:bg-gray-400"
                   variant={quest.completed ? "secondary" : "default"}
                   onClick={() => !quest.completed && router.push(`/${quest.category}/${quest.id}`)}
                 >

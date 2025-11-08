@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { Code2 } from "lucide-react"; 
+import { Gamepad } from 'lucide-react';
 
 interface NavLink {
   label: string;
@@ -11,22 +11,22 @@ interface NavLink {
 }
 
 const links: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "Quests", href: "/" },
-  { label: "Profile", href: "/" },
+  { label: "Home", href: "/home" },
+  { label: "Quests", href: "/questPath" },
+  { label: "Profile", href: "/profile" },
 ];
 
 export const Navbar: React.FC = () => {
   const router = useRouter();
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/30 dark:bg-gray-900/30 border-b border-white/20 dark:border-gray-700 shadow-md px-8 py-4 flex justify-between items-center">
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/10 dark:bg-gray-900/10 border-b border-white/20 dark:border-gray-700 shadow-md px-8 py-4 flex justify-between items-center">
     
       <div
         className="flex items-center gap-2 cursor-pointer"
-        onClick={() => router.push("/")}
+        onClick={() => router.push("/home")}
       >
-        <Code2 size={28} className="text-black dark:text-white" />
+        <Gamepad size={28} className="text-white" />
         <span className="font-bold text-xl text-black dark:text-white">
           SkillQuest
         </span>

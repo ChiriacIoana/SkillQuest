@@ -8,13 +8,11 @@ import {QuestsHeader} from '@/components/common/dashboard/quests-header';
 import { useRecommendedQuests } from '@/api/quests';
 import { useUser } from '@/api/users';
 import { SiteHeader } from '@/components/common/dashboard/site-header';
-import { Navbar } from '@/components/common/ui/navbar';
+import { StarsBackground } from '@/components/common/ui/stars';
 
 export default function Home() {
   const userIdString = typeof window !== 'undefined' ? localStorage.getItem('userId') : null;
   const userId = userIdString ? parseInt(userIdString, 10) : undefined;
-
-
   const { data: user, isLoading: userLoading, error } = useUser(userId);
   const { data: recommendedQuests = [] } = useRecommendedQuests(userId);
 
@@ -23,10 +21,7 @@ export default function Home() {
   if (!user) return <div className="p-8">No user found. Please log in.</div>;
 
   return (
-    <>
-    <Navbar />
-    <div className="p-8 space-y-8 pt-20">
-      
+    <div className="p-8 space-y-8">
       <SiteHeader />
       <StatsPanel
         name={user.username || 'Player'}
@@ -56,6 +51,5 @@ export default function Home() {
       <QuestsHeader />
       <RecommendedQuests />
     </div>
-    </>
   );
 }

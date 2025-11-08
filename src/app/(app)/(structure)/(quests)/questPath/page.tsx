@@ -38,7 +38,7 @@ const questTracks: QuestTrack[] = [
   title: "Node.js Mastery",
   description: "Learn how to build fast, scalable server-side applications using Node.js and Express.",
   difficulty: "Advanced",
-  xprange: "100-300 XP",
+  xprange: "50-90 XP",
   color: "from-pink-400 to-red-500",
   href: "/NodeJs",
 },
@@ -48,7 +48,7 @@ const questTracks: QuestTrack[] = [
     title: "React Development",
     description: "Build dynamic web applications using React and component-based architecture.",
     difficulty: "Beginner",
-    xprange: "250-400 XP",
+    xprange: "75-160 XP",
     color: "from-green-400 to-emerald-500",
     href: "/React",
   },
@@ -57,7 +57,7 @@ const questTracks: QuestTrack[] = [
     title: "HTML Essentials",
     description: "Learn the fundamentals of HTML and structure web pages effectively.",
     difficulty: "Beginner",
-    xprange: "50-150 XP",
+    xprange: "120-60 XP",
     color: "from-green-400 to-teal-500",
     href: "/HTML",
   },
@@ -127,7 +127,7 @@ export default function QuestsPage() {
                   </div>
 
                   <Link href={track.href}>
-                    <Button className="w-full mt-4">View Quests</Button>
+                    <Button className="w-full mt-4 hover:bg-gray-400">View Quests</Button>
                   </Link>
                 </CardContent>
               </Card>
