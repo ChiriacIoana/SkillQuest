@@ -14,6 +14,7 @@ const links: NavLink[] = [
   { label: "Home", href: "/home" },
   { label: "Quests", href: "/questPath" },
   { label: "Profile", href: "/profile" },
+  { label: "Achievements", href: "/achievements" },
 ];
 
 export const Navbar: React.FC = () => {

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Geist_Mono, Onest, } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/common/ui/navbar';
+import { Footer } from '@/components/common/ui/footer';
 
 const onest = Onest({
   subsets: ['latin'],
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Providers>{children}</Providers>
       </body>
     </html>
+    <Footer />
     </>
   );
 }

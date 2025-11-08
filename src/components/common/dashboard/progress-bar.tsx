@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 import { Tooltip } from '@/components/common/ui/tooltip';
 
 interface ProgressBarProps {
-  current: number; // current XP
-  max: number;     // XP for next level
-  questsCompleted?: { name: string; xp: number }[]; // optional detailed quests
+  current: number;
+  max: number;     
+  questsCompleted?: { name: string; xp: number }[]; // optional 
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
