@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CourseLayout } from '@/components/common/courses/course-layout';
+import { CourseLayout } from '@/components/quests/course-layout';
 import { SquareSigma } from 'lucide-react';
 import { useQuestsByCategory } from '@/api/quests';
 

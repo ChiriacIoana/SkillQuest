@@ -1,8 +1,9 @@
 'use client';
 
-import { CourseLayout } from "@/components/common/courses/course-layout";
+import { CourseLayout } from "@/components/quests/course-layout";
 import { Code2 } from "lucide-react";
 import { useQuestsByCategory } from "@/api/quests";
+import { GoBackButton } from "@/components/common/ui/goback-button";
 
 export default function HTMLPage() {
   const { data: quests = [], isLoading, error } = useQuestsByCategory("HTML");

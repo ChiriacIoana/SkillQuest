@@ -16,11 +16,11 @@ interface Quest {
 }
 
 const quests: Quest[] = [
-  { id: 1, title: 'Learn JavaScript - all levels', xp: 20, description: 'Intro to JS syntax and types', href: '/javaScript' },
-  { id: 2, title: 'TypeScript for modern web', xp: 15, description: 'Learn TypeScript for scalable web apps', href: '/typeScriptt' },
-  { id: 3, title: 'Calculus Fundamentals', xp: 10, description: 'Understand the basics of calculus', href: '/calculus' },
-  { id: 4, title: 'React State Mastery', xp: 25, description: 'Learn useState and useEffect deeply' },
-  { id: 5, title: 'CSS Grid Layout', xp: 15, description: 'Build complex layouts easily' },
+  { id: 1, title: 'Next.js', xp: 20, description: 'Learn the basics of Next.js', href: '/Next.js' },
+  { id: 2, title: 'NodeJs', xp: 15, description: 'Dive into server-side development with Node.js', href: '/NodeJs' },
+  { id: 3, title: 'React', xp: 10, description: 'Understand the basics of React', href: '/React' },
+  { id: 4, title: 'HTML', xp: 25, description: 'Learn the fundamentals of HTML', href: '/HTML' },
+  { id: 5, title: 'Coming Soon', xp: 15, description: 'Stay tuned for upcoming quests!', href: '/coming-soon' },
 ];
 
 export const RecommendedQuests: React.FC = () => {

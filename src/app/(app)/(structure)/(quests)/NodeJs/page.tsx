@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { CourseLayout } from '@/components/common/courses/course-layout';
-import { FileCodeCorner } from 'lucide-react';
+import { CourseLayout } from '@/components/quests/course-layout';
+import { Server } from 'lucide-react';
 import { useQuestsByCategory } from '@/api/quests';
 
 
@@ -18,7 +18,7 @@ export default function NodejsPage() {
   return (
     <CourseLayout
       title="Node.js Development"
-      icon={<FileCodeCorner size={32} />}
+      icon={<Server size={32} />}
       gradient="from-pink-400 to-red-500"
       description="Upgrade your JavaScript skills by mastering Node.js — the runtime for building scalable server-side applications."
       progress={45}
