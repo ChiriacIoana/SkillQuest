@@ -8,7 +8,6 @@ import {QuestsHeader} from '@/components/common/dashboard/quests-header';
 import { useRecommendedQuests } from '@/api/quests';
 import { useUser } from '@/api/users';
 import { SiteHeader } from '@/components/common/dashboard/site-header';
-import { StarsBackground } from '@/components/common/ui/stars';
 
 export default function Home() {
   const userIdString = typeof window !== 'undefined' ? localStorage.getItem('userId') : null;

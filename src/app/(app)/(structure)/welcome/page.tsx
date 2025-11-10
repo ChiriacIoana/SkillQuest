@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { QuestsHeader } from "@/components/common/dashboard/quests-header";
 import Skeleton from "@/components/common/ui/skeleton";
@@ -15,7 +15,6 @@ export default function Page() {
       <div className="mt-10">
         <QuestsHeader />
       </div>
-
       <div className="flex h-screen items-start bg-black p-0 gap-12">
         <div className="flex-shrink-0">
           <Skeleton />
@@ -57,7 +56,6 @@ export default function Page() {
               <div className="text-lg font-medium text-gray-400 self-center bg-black border border-gray-400 rounded-lg px-4 py-2">
               told you there's no going back
               </div>
-
             )}
           </div>
         </div>
