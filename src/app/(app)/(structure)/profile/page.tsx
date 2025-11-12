@@ -11,8 +11,8 @@ export default function ProfilePage() {
   const router = useRouter();
 
   const [userId, setUserId] = useState<number | undefined>(() => {
-    if (typeof window === 'undefined') return undefined;
-    const stored = localStorage.getItem('userId');
+    if (typeof window === "undefined") return undefined;
+    const stored = localStorage.getItem("userId");
     return stored ? parseInt(stored, 10) : undefined;
   });
 
@@ -21,21 +21,21 @@ export default function ProfilePage() {
       const detail = (e as CustomEvent)?.detail;
       if (detail?.userId) setUserId(Number(detail.userId));
       else {
-        const stored = localStorage.getItem('userId');
+        const stored = localStorage.getItem("userId");
         if (stored) setUserId(parseInt(stored, 10));
       }
     };
 
     const onStorage = (e: StorageEvent) => {
-      if (e.key === 'userId' && e.newValue) setUserId(parseInt(e.newValue, 10));
+      if (e.key === "userId" && e.newValue) setUserId(parseInt(e.newValue, 10));
     };
 
-    window.addEventListener('skillquest:login', onLogin as EventListener);
-    window.addEventListener('storage', onStorage);
+    window.addEventListener("skillquest:login", onLogin as EventListener);
+    window.addEventListener("storage", onStorage);
 
     return () => {
-      window.removeEventListener('skillquest:login', onLogin as EventListener);
-      window.removeEventListener('storage', onStorage);
+      window.removeEventListener("skillquest:login", onLogin as EventListener);
+      window.removeEventListener("storage", onStorage);
     };
   }, []);
 
@@ -46,9 +46,9 @@ export default function ProfilePage() {
     router.push("/login");
   };
 
-  if (isLoading) return <div className="p-8">Loading profile...</div>;
-  if (error) return <div className="p-8 text-red-500">Error loading profile: {error.message}</div>;
-  if (!user) return <div className="p-8">No user found. Please log in.</div>;
+  if (isLoading) return <div className="p-8 text-center">Loading profile...</div>;
+  if (error) return <div className="p-8 text-center text-red-500">Error loading profile: {error.message}</div>;
+  if (!user) return <div className="p-8 text-center">No user found. Please log in.</div>;
 
   const xpProgress = Math.min((user.currentXP / user.nextLevelXP) * 100, 100);
 
@@ -58,40 +58,47 @@ export default function ProfilePage() {
                  bg-gradient-to-br from-indigo-100 via-purple-200 to-blue-300 
                  dark:from-gray-900 dark:via-gray-800 dark:to-indigo-950 overflow-hidden"
     >
-    <StarsBackground />
+      <StarsBackground />
 
-      <div className="relative z-10 max-w-3xl mx-auto p-8">
-        <h1 className="text-4xl font-bold mb-8 flex items-center gap-3">
-          <User size={36} className="text-white" />
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 py-10 sm:py-16">
+
+        <h1 className="text-3xl sm:text-4xl font-bold mb-8 flex items-center justify-center sm:justify-start gap-3">
+          <User size={32} className="text-white" />
           Profile
         </h1>
 
-        <Card className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+        <Card className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
           <CardHeader>
-            <CardTitle className="text-2xl font-semibold text-center text-gray-900 dark:text-gray-100">
+            <CardTitle className="text-xl sm:text-2xl font-semibold text-center text-gray-900 dark:text-gray-100">
               {user.username}
             </CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <div className="flex justify-center items-center gap-6 text-lg">
+        
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 text-base sm:text-lg text-gray-800 dark:text-gray-200">
               <div className="flex items-center gap-2">
-                <ArrowBigUpDash className="text-purple-400" /> <span>Level {user.level}</span>
+                <ArrowBigUpDash className="text-purple-400 w-5 h-5 sm:w-6 sm:h-6" /> 
+                <span>Level {user.level}</span>
               </div>
               <div className="flex items-center gap-2">
-                <SquareCode className="text-white" /> <span>{user.completedQuests} Quests</span>
+                <SquareCode className="text-white w-5 h-5 sm:w-6 sm:h-6" /> 
+                <span>{user.completedQuests} Quests</span>
               </div>
               <div className="flex items-center gap-2">
-                <Zap className="text-blue-500" /> <span>Streak: {user.streak} </span>
+                <Zap className="text-blue-500 w-5 h-5 sm:w-6 sm:h-6" /> 
+                <span>Streak: {user.streak}</span>
               </div>
             </div>
 
             <div>
-              <div className="flex justify-between text-sm mb-1">
-                <span>XP Progress</span>
-                <span>{user.currentXP}/{user.nextLevelXP} XP</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between text-sm mb-1">
+                <span className="text-center sm:text-left">XP Progress</span>
+                <span className="text-center sm:text-right text-gray-600 dark:text-gray-400">
+                  {user.currentXP}/{user.nextLevelXP} XP
+                </span>
               </div>
-              <div className="w-full bg-gray-300/40 dark:bg-gray-700/40 h-4 rounded-full overflow-hidden">
+              <div className="w-full bg-gray-300/40 dark:bg-gray-700/40 h-3 sm:h-4 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 transition-all duration-700"
                   style={{ width: `${xpProgress}%` }}
@@ -102,7 +109,7 @@ export default function ProfilePage() {
             <div className="flex justify-center mt-6">
               <Button
                 onClick={handleLogout}
-                className="hover:bg-gray-400"
+                className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition text-gray-900 dark:text-gray-100"
               >
                 <LogOut size={18} /> Log Out
               </Button>
