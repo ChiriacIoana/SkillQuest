@@ -1,5 +1,6 @@
 import api from "./api";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getUserById } from "./users";
 
 export type Quest = {
   questId: number;
@@ -73,7 +74,23 @@ export const useCompleteQuest = () => {
       if (variables?.userId) {
         qc.invalidateQueries({ queryKey: ["quests", variables.userId] });
       }
-      qc.invalidateQueries({ queryKey: ["users", "me"] });
+
+      (async () => {
+        try {
+          console.debug("completeQuest success", { variables, _data });
+          if (variables?.userId) {
+            await qc.fetchQuery({
+              queryKey: ["users", variables.userId],
+              queryFn: () => getUserById(variables.userId),
+            });
+          }
+        } catch (err) {
+          if (variables?.userId) {
+            qc.invalidateQueries({ queryKey: ["users", variables.userId] });
+          }
+          console.error("Failed to refetch user after completing quest:", err);
+        }
+      })();
     },
   });
 };
@@ -117,26 +134,28 @@ export const useQuest = (questId?: number) => {
   });
 };
 
-export const getQuestsByCategory = async (category: string): Promise<Quest[]> => {
+export const getQuestsByCategory = async (
+  category: string
+): Promise<Quest[]> => {
   const res = await api.get(`/quests/category/${category}`);
-  return res.data; 
+  return res.data;
 };
 
 export const useQuestsByCategory = (category?: string) => {
   return useQuery<CourseLayoutQuest[], Error>({
-    queryKey: ['quests-category', category],
+    queryKey: ["quests-category", category],
     queryFn: async () => {
       if (!category) return [];
       const data: Quest[] = await getQuestsByCategory(category);
-      
-      console.log('Raw quest data:', data); 
-      
-      return data.map(q => ({
+
+      console.log("Raw quest data:", data);
+
+      return data.map((q) => ({
         id: q.questId,
         title: q.questName,
         description: q.description,
         xp: q.xp,
-        difficulty: q.difficulty as "Beginner" | "Intermediate" | "Advanced", 
+        difficulty: q.difficulty as "Beginner" | "Intermediate" | "Advanced",
         completed: false,
         category: q.category,
       }));
