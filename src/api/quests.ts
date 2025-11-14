@@ -72,7 +72,7 @@ export const useCompleteQuest = () => {
     mutationFn: ({ userId, questId }) => completeQuest(userId, questId),
     onSuccess: (_data, variables) => {
       if (variables?.userId) {
-        qc.invalidateQueries({ queryKey: ["quests", variables.userId] });
+        qc.invalidateQueries({ queryKey: ["users", variables.userId] });
       }
 
       (async () => {
