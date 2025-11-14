@@ -1,6 +1,22 @@
-Take a look - https://skill-quest-omega.vercel.app/register
-
+This is the frontend for the SkillQuest project, built with Next.js, deployed on Vercel.
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Deployment intructions below.
+
+## Backend
+The backend is in a separate repository and is deployed on Render with the database hosted on Supabase.
+You can find the backend repository here: 
+https://github.com/ChiriacIoana/SkillQuest-backend.git
+
+For full backend deployment instructions, see the README in the backend repo.
+
+## Screenshots of the project
+<img width="1895" height="872" alt="image" src="https://github.com/user-attachments/assets/f240291b-7e30-42a2-8a1b-f8ff8db4e25b" />
+<img width="1898" height="873" alt="image" src="https://github.com/user-attachments/assets/81488c7f-e3fc-45a7-bbd6-f016c6485f52" />
+<img width="1883" height="861" alt="image" src="https://github.com/user-attachments/assets/c699b3d5-85e3-46f6-a8c2-b33491e0e8d8" />
+<img width="1893" height="870" alt="image" src="https://github.com/user-attachments/assets/16e13b63-4a92-4779-82f9-7eadf4c3f2e6" />
+
+
+
 
 ## Getting Started
 
