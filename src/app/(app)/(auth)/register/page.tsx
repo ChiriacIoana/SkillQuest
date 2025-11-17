@@ -16,7 +16,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 
-// Backend expects username + password only
 const schema = z.object({
   username: z
     .string()
@@ -24,7 +23,16 @@ const schema = z.object({
     .max(40, "Username must be at most 40 characters long"),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters long"),
+    .min(6, "Password must be at least 6 characters long")
+    .refine((val) => /[A-Z]/.test(val), {
+      message: "Password must contain at least one uppercase letter"
+    })
+    .refine((val) => /[0-9]/.test(val), {
+      message: "Password must contain at least one number"
+    })
+    .refine((val) => /[!@#$%^&*]/.test(val), {
+      message: "Password must contain at least one special character"
+    }), 
   repeatPassword: z
     .string()
     .min(6, "Password must be at least 6 characters long"),

@@ -23,7 +23,8 @@ const schema = z.object({
     .max(40, "Username must be at most 40 characters long"),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters long"),
+    .min(6, "Password must be at least 6 characters long")
+    
 });
 
 export default function LoginPage() {
