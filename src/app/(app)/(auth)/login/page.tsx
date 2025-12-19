@@ -15,6 +15,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import {useState} from "react";
+import {Eye, EyeOff} from "lucide-react";
 
 const schema = z.object({
   username: z
@@ -29,6 +31,7 @@ const schema = z.object({
 
 export default function LoginPage() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -79,16 +82,34 @@ export default function LoginPage() {
           <FormItem>
             <FormLabel>Password</FormLabel>
             <FormControl>
-              <Input placeholder="password" {...field} type="password" />
+              <div className="relative">
+              <Input placeholder="password" 
+              {...field} 
+               type={showPassword ? "text" : "password"}
+            className="pr-10"
+          />
+
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            tabIndex={-1}
+          >
+            {showPassword ? (
+              <EyeOff className="h-4 w-4" />
+            ) : (
+              <Eye className="h-4 w-4" />
+            )}
+          </button>
+        </div>
+            
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
 
-      <Button type="submit" className="w-full">
-        Submit
-      </Button>
+      <Button type="submit" className="w-full"> Submit </Button>
 
       <div className="text-black-500 text-sm text-center mt-4">
         Don't have an account?{" "}

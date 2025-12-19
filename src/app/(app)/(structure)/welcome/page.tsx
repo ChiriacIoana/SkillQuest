@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { QuestsHeader } from "@/components/common/dashboard/quests-header";
 import Skeleton from "@/components/common/ui/skeleton";
@@ -17,11 +17,10 @@ export default function Page() {
       </div>
 
       <div className="flex h-screen items-start bg-black p-0 gap-12">
-        
         <div className="hidden lg:flex lg:justify-center">
           <Skeleton />
         </div>
-        
+
         <div className="flex-1 w-full lg:w-[55%] bg-gradient-to-r from-purple-600 to-blue-500 rounded-2xl shadow-xl min-h-[200px] p-6 sm:p-10 text-left flex flex-col border-transparent hover:border-white transition-all">
           <h2 className="text-2xl sm:text-3xl font-bold text-black flex items-center">
             Welcome, ready to begin?
