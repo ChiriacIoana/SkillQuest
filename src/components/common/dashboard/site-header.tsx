@@ -1,12 +1,6 @@
 'use client';
 
 import { Card, CardHeader } from '@/components/common/ui/card';
-import { Orbitron } from 'next/font/google';
-import { Share_Tech } from 'next/font/google';
-
-const shareTech = Share_Tech({ subsets: ['latin'], weight: '400' });
-
-const orbitron = Orbitron({ subsets: ['latin'], weight: ['400','700'] });
 
 export function SiteHeader() {
   return (
