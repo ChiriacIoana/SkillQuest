@@ -21,6 +21,7 @@ export default function HintCard({
   const [displayedHint, setDisplayedHint] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -144,6 +145,11 @@ export default function HintCard({
                 <Lightbulb className="w-3.5 h-3.5" />
                 Use this hint to get some insight!
               </p>
+
+              <button
+              onClick={() => setShowChat(true)}
+              className="px-3 py-1 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-200 shadow-md"
+              > Open AI Chat</button>
             </div>
           )}
         </div>
