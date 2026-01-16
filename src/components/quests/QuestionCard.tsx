@@ -27,9 +27,10 @@ export function QuestionCard({
         <CardTitle className="text-lg font-semibold">Question {index + 1}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="mb-4">{question.question}</p>
+        <p className="mb-1">{question.question}</p>
 
         <HintCard
+        className="p-1 ml-0 mb-1"
           questionText={question.question}
           backendUrl={process.env.NEXT_PUBLIC_BACKEND_URL!}
           />
