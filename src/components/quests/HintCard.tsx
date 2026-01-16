@@ -1,10 +1,8 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Lightbulb, MessageCircle, X, Loader2} from 'lucide-react';
 
 interface HintCardProps {
     questionText: string;
-    correctAnswer: string;
-    userAnswer?: string;
     backendUrl: string;
     className?: string;
     onHintGenerated?: (hint: string) => void;
@@ -12,8 +10,6 @@ interface HintCardProps {
 
 export default function HintCard({
     questionText,
-    correctAnswer,
-    userAnswer,
     backendUrl,
     className = '',
     onHintGenerated,
@@ -22,6 +18,24 @@ export default function HintCard({
     const [loading, setLoading] = useState(false);
     const [showHint, setShowHint] = useState(false);
     const [error, setError] = useState<string>('');
+    const [displayedHint, setDisplayedHint] = useState('');
+
+     useEffect(() => {
+        if(!hint) return;
+
+        setDisplayedHint('');
+        let currentIndex = 0;
+
+        const interval = setInterval(() => {
+            setDisplayedHint((prev) => prev + hint[currentIndex]);
+            currentIndex++;
+
+            if (currentIndex >= hint.length) {
+                clearInterval(interval);
+            }
+        }, 30);
+        return () => clearInterval(interval);
+    }, [hint]);
 
     const handleGetHint = async () => {
         setLoading(true);
@@ -29,23 +43,27 @@ export default function HintCard({
         setError('');
 
         try {
+          const token = localStorage.getItem("accessToken");
             const response = await fetch(`${backendUrl}/hint`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                     Authorization: `Bearer ${token ?? ''}`,
                 },
                 body: JSON.stringify({
                     questionText,
-                    correctAnswer,
-                    userAnswer,
                 }),
             });
+
+            console.log("Backend URL:", backendUrl);
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
             const data = await response.json();
             setHint(data.hint);
+            setDisplayedHint('');
+            setShowHint(true);
 
             if(onHintGenerated) {
                 onHintGenerated(data.hint);
@@ -106,7 +124,9 @@ export default function HintCard({
             ) : error ? (
               <p className="text-red-600 text-sm">{error}</p>
             ) : (
-              <p className="text-gray-700 leading-relaxed">{hint}</p>
+              <p className="text-gray-700 leading-relaxed">{displayedHint}
+              <span className="animate-pulse">| </span>  
+            </p>
             )}
           </div>
 

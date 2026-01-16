@@ -1,4 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/common/ui/card";
+import HintCard from "./HintCard";
 
 export function QuestionCard({
   index,
@@ -19,6 +20,7 @@ export function QuestionCard({
 }) {
   const answers = JSON.parse(question.answersJson);
 
+
   return (
     <Card className="mb-4 shadow-md bg-gray-50 dark:bg-gray-900 p-8">
       <CardHeader>
@@ -26,6 +28,11 @@ export function QuestionCard({
       </CardHeader>
       <CardContent>
         <p className="mb-4">{question.question}</p>
+
+        <HintCard
+          questionText={question.question}
+          backendUrl={process.env.NEXT_PUBLIC_BACKEND_URL!}
+          />
         <div className="space-y-2">
           {Object.entries(answers).map(([key, answer]: any) => {
             let bg = "";
