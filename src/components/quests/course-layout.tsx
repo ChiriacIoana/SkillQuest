@@ -11,6 +11,7 @@ import { Button } from "@/components/common/ui/button";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { GoBackButton } from "../common/ui/goback-button";
+import AiChatPanel from "../common/ui/ai-chat-panel";
 
 
 interface Quest {
@@ -97,6 +98,7 @@ export const CourseLayout: React.FC<CourseLayoutProps> = ({
                 <CardTitle className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   {quest.title}
                 </CardTitle>
+
               </CardHeader>
 
               <CardContent>

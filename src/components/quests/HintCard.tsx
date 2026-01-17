@@ -9,6 +9,7 @@ interface HintCardProps {
   backendUrl: string;
   className?: string;
   onHintGenerated?: (hint: string) => void;
+  onOpenChat?: () => void;
 }
 
 export default function HintCard({
@@ -16,23 +17,23 @@ export default function HintCard({
   backendUrl,
   className = "",
   onHintGenerated,
+  onOpenChat,
 }: HintCardProps) {
   const [hint, setHint] = useState<string>("");
   const [displayedHint, setDisplayedHint] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [showHint, setShowHint] = useState(false);
-  const [showChat, setShowChat] = useState(false);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
     if (!hint) return;
 
-    setDisplayedHint('');
+    setDisplayedHint("");
     let currentIndex = 0;
 
     const interval = setInterval(() => {
       const char = hint[currentIndex];
-      if (char===undefined) {
+      if (char === undefined) {
         clearInterval(interval);
         return;
       }
@@ -147,9 +148,11 @@ export default function HintCard({
               </p>
 
               <button
-              onClick={() => setShowChat(true)}
-              className="px-3 py-1 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-200 shadow-md"
-              > Open AI Chat</button>
+                onClick={onOpenChat}
+                className="text-xs px-3 py-1.5 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition"
+              >
+                Open AI Chat
+              </button>
             </div>
           )}
         </div>

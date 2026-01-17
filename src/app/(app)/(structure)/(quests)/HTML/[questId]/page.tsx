@@ -12,6 +12,8 @@ import { useCompleteQuest } from "@/api/quests";
 import { GoBackButton } from "@/components/common/ui/goback-button";
 import { Code2, Send } from "lucide-react";
 import { StarsBackground } from "@/components/common/ui/stars";
+import { useState } from "react";
+import AiChatPanel from "@/components/common/ui/ai-chat-panel";
 
 export default function QuestPage() {
   const params = useParams();
@@ -28,6 +30,7 @@ export default function QuestPage() {
     handleSubmit,
   } = useQuestLogic();
   const completeQuestMutation = useCompleteQuest();
+  const [chatOpen, setChatOpen] = useState(false);
 
   if (!quest || !questions) return <div>Loading...</div>;
 
@@ -41,41 +44,52 @@ export default function QuestPage() {
   };
 
   return (
-    <div
-      className="relative min-h-screen w-full text-gray-900 dark:text-gray-100 
+      <div
+        className="relative min-h-screen w-full text-gray-900 dark:text-gray-100 
                  bg-gradient-to-br from-blue-100 via-indigo-200 to-purple-300 
                  dark:from-gray-900 dark:via-gray-800 dark:to-indigo-950 overflow-hidden"
-    >
-      <StarsBackground />
+      >
+        <StarsBackground />
+         <div
+        className={`transition-all duration-300 ease-in-out
+        ${chatOpen ?
+             "mr-65 md:mr-90 lg:mr-90 xl:mr-96" 
+           : "mr-65 md:mr-90 lg:mr-90 xl:mr-96"
+        }`}
+      >
 
-      <div className="relative z-10 max-w-4xl mx-auto p-8">
-        <GoBackButton className="mb-3" />
-        <QuestCard quest={quest} icon={<Code2 size={32} />} />
-        {questions?.map((q: any, index: number) => {
-          const result = results.find((r) => r.questionId === q.id);
-          return (
-            <QuestionCard
-              key={q.id}
-              index={index}
-              question={q}
-              result={result}
-              selectedAnswer={selectedAnswers[q.id]}
-              onChange={(key) => handleAnswerChange(q.id, key)}
-              submitted={submitted}
-              xp={q.xp}
-            />
-          );
-        })}
+        <div className="relative z-10 max-w-4xl mx-auto p-8">
+          <GoBackButton className="mb-3" />
+          <QuestCard quest={quest} icon={<Code2 size={32} />} />
+          {questions?.map((q: any, index: number) => {
+            const result = results.find((r) => r.questionId === q.id);
+            return (
+              <QuestionCard
+                key={q.id}
+                index={index}
+                question={q}
+                result={result}
+                selectedAnswer={selectedAnswers[q.id]}
+                onChange={(key) => handleAnswerChange(q.id, key)}
+                submitted={submitted}
+                xp={q.xp}
+                onOpenChat={() => setChatOpen(true)}
+              />
+            );
+          })}
 
-        <Button
-          onClick={handleComplete}
-          disabled={submitted}
-          className="hover:bg-gray-400 mt-4"
-        >
-          {submitted ? "Completed" : "Complete Quest"}
-          <Send className="h-4 w-4 mt-1.5" />
-        </Button>
+          <Button
+            onClick={handleComplete}
+            disabled={submitted}
+            className="hover:bg-gray-400 mt-4"
+          >
+            {submitted ? "Completed" : "Complete Quest"}
+            <Send className="h-4 w-4 mt-1.5" />
+          </Button>
+        </div>
       </div>
+
+      <AiChatPanel open={chatOpen} onClose={() => setChatOpen(false)} />
     </div>
   );
 }
